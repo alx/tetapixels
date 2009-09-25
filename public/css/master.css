@@ -1,0 +1,32 @@
+body {
+	background-color:#000;
+	color:#FFF;
+	text-align:center;
+}
+
+#pixel_wall{
+	height:400px;
+	width:400px;
+	margin: 0 auto;
+}
+
+.row div {
+	display:inline;
+}
+
+.pixel {
+	float:left;
+	border:0;
+	height:8px;
+	margin:0;
+	padding:0;
+	width:8px;
+}
+
+.pixel_on {
+	background-color: #FFF;
+}
+
+.pixel_off {
+	background-color: #000;
+}

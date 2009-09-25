@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>TetaRuby</title>
+	<link rel="stylesheet" href="/css/master.css" type="text/css"/>
+	
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/master.js"></script>
+</head>
+<body>
+	<h1>Pixel Wall</h1>
+
+	<div id="pixel_wall"><% 50.times do |row_num| %><div class="row"><% 50.times do |column_num| pixel_id = (row_num * 50) + column_num %><div id="pixel-<%= pixel_id %>" class="pixel pixel_<%= @pixels[pixel_id].status %>"></div><% end %></div><% end %></div>
+	
+	<p><a href="http://github.com/alx/tetaruby">Source</a></p>
+	
+</body>
+</html>
