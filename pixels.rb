@@ -11,7 +11,30 @@ class Pixel
   include DataMapper::Resource
   
   property :id, Integer, :key => true
-  property :status, Text
+  property :ligth, Boolean
+  
+  # dm timestamp
+  
+  has n, :clicks
+  
+  def switch
+    self.update :light => !self.light
+    self.clicks.new.save
+  end
+  
+  def status
+    light ? 'on' : 'off'
+  end
+end
+
+class Pixel
+  include DataMapper::Resource
+  
+  property :id, Serial
+  
+  # dm timestamp
+  
+  belongs_to :pixel
 end
 
 get '/' do
@@ -29,10 +52,6 @@ get '/' do
   erb :index
 end
 
-post '/pixel_on' do
-  Pixel.first(:id => params[:pixel_id]).update :status => 'on'
-end
-
-post '/pixel_off' do
-  Pixel.first(:id => params[:pixel_id]).update :status => 'off'
+post '/pixel_switch' do
+  Pixel.first(:id => params[:pixel_id]).switch
 end
