@@ -42,7 +42,6 @@ class Grid
       grid[i] = status.to_s
     end
     self.update_attributes :binary_grid => grid
-    self.pixels.save
   end
   
 end
