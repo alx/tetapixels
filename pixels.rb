@@ -55,3 +55,8 @@ end
 post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch
 end
+
+get '/timestamp_update' do
+  content_type :json
+  Pixel.all(:updated_at.gt  => params[:last_timestamp]).to_json
+end
