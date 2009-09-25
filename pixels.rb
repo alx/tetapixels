@@ -101,3 +101,7 @@ end
 post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch
 end
+
+get '/updates' do
+  
+end

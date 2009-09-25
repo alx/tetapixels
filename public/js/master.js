@@ -15,13 +15,27 @@ $('document').ready(function() {
 		
 		$.post("/pixel_switch", { 'pixel_id': pixel_id});
 		
-		if($(this).hasClass('pixel_on')){
-			$(this).removeClass('pixel_on');
-			$(this).addClass('pixel_off');
-		} else {
-			$(this).removeClass('pixel_off');
-			$(this).addClass('pixel_on');
-		}	
-			
+		switch_pixel("#" + this.id);
+		
+		get_updates();
 	})
+	
+	function switch_pixel(pixel_id) {
+		if($(pixel_id).hasClass('pixel_on')){
+			$(pixel_id).removeClass('pixel_on');
+			$(pixel_id).addClass('pixel_off');
+		} else {
+			$(pixel_id).removeClass('pixel_off');
+			$(pixel_id).addClass('pixel_on');
+		}
+	}
+	
+	function get_udpates() {
+		$.getJSON('/updates', {'timestamp', timestamp}, function(data) {
+			$.each(data.pixels, function(i, pixel) {
+				switch_pixel("#pixel" + pixel);
+			});
+		});
+		timestamp = new Date().getTime();
+	}
 });
