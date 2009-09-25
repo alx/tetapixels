@@ -1,25 +1,73 @@
 require 'rubygems'
 require 'sinatra'
-require 'dm-core'
 
-# Configure DataMapper to use the App Engine datastore 
-#DataMapper.setup(:default, "appengine://auto")
+gem 'dm-core', '=0.9.11' 
+gem 'dm-timestamps', '=0.9.11'
+
+require 'dm-core'
+require 'dm-timestamps'
+
 DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}/test.db")
 
-# Create your model class
+set :logging, false
+
+class Grid
+  include DataMapper::Resource
+  
+  property :id, Serial
+  property :binary_grid, String
+  property :pixel_count, Integer
+  
+  property :updated_at, DateTime
+  
+  has n, :pixels
+  
+  def initialize
+    self.pixel_count = 2500
+  end
+  
+  def update_pixel(pixel_id, status)
+    grid = self.binary_grid
+    grid[pixel_id] = status
+    self.update_attributes :binary_grid => grid
+  end
+  
+  def generate_random_grid
+    grid = " " * self.pixel_count
+    self.pixel_count.times do |i|
+      # use index to start index at 1
+      status = rand(2)
+      pixel = self.pixels.new(:id => i, :light => status)
+      pixel.save
+      grid[i] = status.to_s
+    end
+    self.update_attributes :binary_grid => grid
+    self.pixels.save
+  end
+  
+end
+
 class Pixel
   include DataMapper::Resource
   
   property :id, Integer, :key => true
-  property :ligth, Boolean
+  property :light, Boolean
   
-  # dm timestamp
+  property :updated_at, DateTime
   
+  belongs_to :grid
   has n, :clicks
   
   def switch
-    self.update :light => !self.light
-    self.clicks.new.save
+    if self.light == true
+      self.update_attributes :light => false
+      self.grid.update_pixel(self.id, '0')
+    else
+      self.update_attributes :light => true
+      self.grid.update_pixel(self.id, '1')
+    end
+    click = self.clicks.new
+    click.save
   end
   
   def status
@@ -27,26 +75,25 @@ class Pixel
   end
 end
 
-class Pixel
+class Click
   include DataMapper::Resource
   
   property :id, Serial
   
-  # dm timestamp
+  property :created_at, DateTime
   
   belongs_to :pixel
 end
 
 get '/' do
-  # Just list all the shouts
-  @pixels = Pixel.all
-
-  unless @pixels.size != 0
-   DataMapper.auto_migrate!
-   status = ['on', 'off']
-    2500.times do |i|
-      Pixel.create(:id => i, :status => status[rand(2)])
-    end
+  
+  begin
+    @grid = Grid.first
+  rescue
+    DataMapper.auto_migrate!
+    @grid = Grid.new
+    @grid.save
+    @grid.generate_random_grid
   end
 
   erb :index
@@ -54,9 +101,4 @@ end
 
 post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch
-end
-
-get '/timestamp_update' do
-  content_type :json
-  Pixel.all(:updated_at.gt  => params[:last_timestamp]).to_json
 end
