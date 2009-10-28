@@ -1,4 +1,38 @@
 $('document').ready(function() {
+	
+	$("#slider").slider({
+		orientation: "vertical",
+		range: "min",
+		min: 0,
+		max: 15,
+		value: 8,
+		slide: function(event, ui) {
+			value = ui.value;
+			switch(value)
+			{
+			case 10:
+			  value = 'A';
+			  break;
+			case 11:
+			  value = 'B';
+			  break;
+			case 12:
+			  value = 'C';
+			  break;
+			case 13:
+			  value = 'D';
+			  break;
+			case 14:
+			  value = 'E';
+			  break;
+			case 15:
+			  value = 'F';
+			  break;
+			}
+			$("#gradient").val(value);
+		}
+	});
+	
 
 	// load grid
 	for(var i = 0; i < grid.length; i++) {

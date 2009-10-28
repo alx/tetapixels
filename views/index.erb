@@ -13,6 +13,7 @@
 	</script>
 	
 	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery.ui.js"></script>
 	<script type="text/javascript" src="/js/master.js"></script>
 </head>
 <body>
@@ -21,7 +22,9 @@
 	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 	
 	<p>
-		<label for="gradient">Gradient</label><input type="text" name="gradient" value="0" id="gradient">
+		<label for="gradient">Gradient</label>
+		<div id="slider"></div>
+		<input type="text" name="gradient" value="0" id="gradient">
 		<a href="http://github.com/alx/tetapixels">Source</a>
 	</p>
 	
