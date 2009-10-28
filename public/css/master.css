@@ -5,8 +5,21 @@ body {
 }
 
 #pixel_wall{
+	height:160px;
+	width:270px;
+	padding:10px;
+	margin: 0 auto;
+}
+
+#info{
 	width:270px;
 	margin: 0 auto;
+	text-align:center;
+}
+
+#slider{
+	width:200px;
+	margin: 10px auto;
 }
 
 .row div {

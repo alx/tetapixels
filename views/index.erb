@@ -22,13 +22,12 @@
 	<h1>Pong Wall</h1>
 
 	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
-	
-	<p>
-		<label for="gradient">Gradient</label>
-		<div id="slider" style="height:200px;"></div>
-		<input type="text" name="gradient" value="8" id="gradient">
+		
+	<div id="info">
+		<div id="slider"></div>
+		<input type="hidden" name="gradient" value="8" id="gradient">
 		<a href="http://github.com/alx/tetapixels">Source</a>
-	</p>
+	</div>
 	
 </body>
 </html>

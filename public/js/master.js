@@ -1,7 +1,6 @@
 $('document').ready(function() {
 	
 	$("#slider").slider({
-		orientation: "vertical",
 		range: "min",
 		min: 0,
 		max: 15,
