@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="/css/master.css" type="text/css"/>
 	
 	<script type="text/javascript">
-		var grid = "<%= @grid.binary_grid.to_s %>";
+		var grid = "<%= @grid.hex_grid.to_s %>";
 		var timestamp = new Date().getTime();
 	</script>
 	
@@ -21,6 +21,7 @@
 	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 	
 	<p>
+		<label for="gradient">Gradient</label><input type="text" name="gradient" value="0" id="gradient">
 		<a href="http://github.com/alx/tetapixels">Source</a>
 	</p>
 	

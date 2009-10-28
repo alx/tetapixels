@@ -15,7 +15,7 @@ class Grid
   include DataMapper::Resource
   
   property :id, Serial
-  property :binary_grid, String
+  property :hex_grid, String
   property :pixel_count, Integer
   
   property :updated_at, DateTime
@@ -27,21 +27,21 @@ class Grid
   end
   
   def update_pixel(pixel_id, status)
-    grid = self.binary_grid
+    grid = self.hex_grid
     grid[pixel_id] = status
-    self.update_attributes :binary_grid => grid
+    self.update_attributes :hex_grid => grid
   end
   
   def generate_random_grid
+    values = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
     grid = " " * self.pixel_count
     self.pixel_count.times do |i|
       # use index to start index at 1
-      status = rand(2)
-      pixel = self.pixels.new(:id => i, :light => status)
+      pixel = self.pixels.new(:id => i, :light => rand(2), :gradient => values[rand(16)])
       pixel.save
-      grid[i] = status.to_s
+      grid[i] = pixel.gradient
     end
-    self.update_attributes :binary_grid => grid
+    self.update_attributes :hex_grid => grid
   end
   
 end
@@ -58,20 +58,22 @@ class Pixel
   belongs_to :grid
   has n, :clicks
   
-  def switch
-    if self.light == true
-      self.update_attributes :light => false
-      self.grid.update_pixel(self.id, '0')
-    else
-      self.update_attributes :light => true
-      self.grid.update_pixel(self.id, '1')
+  def switch(new_gradient)
+    
+    self.gradient = new_gradient
+    
+    if self.light == true && self.gradient == '0'
+      self.light = false
+    elsif self.light == false && gradient == 'F'
+      self.light = true
     end
-    click = self.clicks.new
+    
+    self.save
+    
+    self.grid.update_pixel(self.id, new_gradient)
+    
+    click = self.clicks.new :gradient => new_gradient
     click.save
-  end
-  
-  def status
-    light ? 'on' : 'off'
   end
 end
 
@@ -79,6 +81,7 @@ class Click
   include DataMapper::Resource
   
   property :id, Serial
+  property :gradient, String
   
   property :created_at, DateTime
   
@@ -116,9 +119,6 @@ get '/last' do
 end
 
 get '/updates' do
-  p "updates"
   @grid = Grid.first
-  p "last grid update: " << @grid.inspect
-  p "timestamp: " << Time.at(params[:timestamp].to_i)
   @grid.pixels.all(:updated_at.gt => Time.at(params[:timestamp].to_i)).to_json  
 end

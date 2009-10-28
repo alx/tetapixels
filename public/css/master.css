@@ -23,9 +23,26 @@ body {
 }
 
 .pixel_on {
-	background: url(../images/1.gif);
+	background: url(../images/F.gif);
 }
 
 .pixel_off {
 	background: url(../images/0.gif);
 }
+
+.pixel_0 {background: url(../images/0.gif);}
+.pixel_1 {background: url(../images/1.gif);}
+.pixel_2 {background: url(../images/2.gif);}
+.pixel_3 {background: url(../images/3.gif);}
+.pixel_4 {background: url(../images/4.gif);}
+.pixel_5 {background: url(../images/5.gif);}
+.pixel_6 {background: url(../images/6.gif);}
+.pixel_7 {background: url(../images/7.gif);}
+.pixel_8 {background: url(../images/8.gif);}
+.pixel_9 {background: url(../images/9.gif);}
+.pixel_A {background: url(../images/A.gif);}
+.pixel_B {background: url(../images/B.gif);}
+.pixel_C {background: url(../images/C.gif);}
+.pixel_D {background: url(../images/D.gif);}
+.pixel_E {background: url(../images/E.gif);}
+.pixel_F {background: url(../images/F.gif);}
