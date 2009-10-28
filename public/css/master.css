@@ -22,14 +22,6 @@ body {
 	width:10px;
 }
 
-.pixel_on {
-	background: url(../images/F.gif);
-}
-
-.pixel_off {
-	background: url(../images/0.gif);
-}
-
 .pixel_0 {background: url(../images/0.gif);}
 .pixel_1 {background: url(../images/1.gif);}
 .pixel_2 {background: url(../images/2.gif);}
