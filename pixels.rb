@@ -51,6 +51,7 @@ class Pixel
   
   property :id, Integer, :key => true
   property :light, Boolean
+  property :gradient, String
   
   property :updated_at, DateTime
   
@@ -99,7 +100,7 @@ get '/' do
 end
 
 post '/pixel_switch' do
-  Pixel.first(:id => params[:pixel_id]).switch
+  Pixel.first(:id => params[:pixel_id]).switch(params[:gradient])
 end
 
 get '/last' do
