@@ -5,7 +5,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>TetaPixels</title>
-	<link rel="stylesheet" href="/css/master.css" type="text/css"/>
 	
 	<script type="text/javascript">
 		var grid = "<%= @grid.hex_grid.to_s %>";
@@ -15,6 +14,9 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.ui.js"></script>
 	<script type="text/javascript" src="/js/master.js"></script>
+	
+	<link rel="stylesheet" href="/css/jquery-ui/ui.all.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/css/master.css" type="text/css" media="all"/>
 </head>
 <body>
 	<h1>Pong Wall</h1>
@@ -23,7 +25,7 @@
 	
 	<p>
 		<label for="gradient">Gradient</label>
-		<div id="slider"></div>
+		<div id="slider" style="height:200px;"></div>
 		<input type="text" name="gradient" value="0" id="gradient">
 		<a href="http://github.com/alx/tetapixels">Source</a>
 	</p>
