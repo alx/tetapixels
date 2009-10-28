@@ -21,8 +21,6 @@
 	<div id="pixel_wall"><% 27.times do |row_num| %><div class="row"><% 16.times do |column_num| pixel_id = (row_num * 16) + column_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 	
 	<p>
-		<input type="submit" name="rollback" value="Rollback" id="rollback">
-		<input type="submit" name="edit" value="Edit" id="edit" style="display:none;">
 		<a href="http://github.com/alx/tetapixels">Source</a>
 	</p>
 	

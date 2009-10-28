@@ -11,15 +11,10 @@ $('document').ready(function() {
 	
 	$('.pixel').click(function(){
 		
-		if($('#edit').attr("display") == 'none'){
-			var pixel_id = this.id.split("-").pop();
+		var pixel_id = this.id.split("-").pop();
+		$.post("/pixel_switch", { 'pixel_id': pixel_id});
+		switch_pixel("#" + this.id);
 		
-			$.post("/pixel_switch", { 'pixel_id': pixel_id});
-		
-			switch_pixel("#" + this.id);
-		
-			get_updates();
-		}
 	});
 	
 	function switch_pixel(pixel_id) {
@@ -45,7 +40,6 @@ $('document').ready(function() {
 		
 		var limit = 20;
 		var offset = 0;
-		$('#edit').show();
 		
 		while($('#edit').attr("display") != 'none') {
 			$.getJSON('last', {'limit': limit, 'offset': offset}, function(data) {
