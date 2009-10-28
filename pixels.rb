@@ -23,7 +23,7 @@ class Grid
   has n, :pixels
   
   def initialize
-    self.pixel_count = 2500
+    self.pixel_count = 432
   end
   
   def update_pixel(pixel_id, status)
@@ -102,6 +102,22 @@ post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch
 end
 
+get '/last' do
+  params[:limit] ||= 10
+  params[:offset] ||= 0
+  pixels = []
+  Click.all(:limit => params[:limit].to_i,
+            :offset => params[:offset].to_i,
+            :order => [:created_at.desc]).each do |click|
+    pixels << click.pixel.id
+  end
+  pixels.inspect
+end
+
 get '/updates' do
-  
+  p "updates"
+  @grid = Grid.first
+  p "last grid update: " << @grid.inspect
+  p "timestamp: " << Time.at(params[:timestamp].to_i)
+  @grid.pixels.all(:updated_at.gt => Time.at(params[:timestamp].to_i)).to_json  
 end

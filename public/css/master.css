@@ -17,16 +17,16 @@ body {
 .pixel {
 	float:left;
 	border:0;
-	height:8px;
+	height:10px;
 	margin:0;
 	padding:0;
-	width:8px;
+	width:10px;
 }
 
 .pixel_on {
-	background-color: #FFF;
+	background: url(../images/1.gif);
 }
 
 .pixel_off {
-	background-color: #000;
+	background: url(../images/0.gif);
 }

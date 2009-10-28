@@ -11,14 +11,16 @@ $('document').ready(function() {
 	
 	$('.pixel').click(function(){
 		
-		var pixel_id = this.id.split("-").pop();
+		if($('#edit').attr("display") == 'none'){
+			var pixel_id = this.id.split("-").pop();
 		
-		$.post("/pixel_switch", { 'pixel_id': pixel_id});
+			$.post("/pixel_switch", { 'pixel_id': pixel_id});
 		
-		switch_pixel("#" + this.id);
+			switch_pixel("#" + this.id);
 		
-		get_updates();
-	})
+			get_updates();
+		}
+	});
 	
 	function switch_pixel(pixel_id) {
 		if($(pixel_id).hasClass('pixel_on')){
@@ -30,12 +32,29 @@ $('document').ready(function() {
 		}
 	}
 	
-	function get_udpates() {
-		$.getJSON('/updates', {'timestamp', timestamp}, function(data) {
+	function get_updates() {
+		$.getJSON('updates', {'timestamp': timestamp}, function(data) {
 			$.each(data.pixels, function(i, pixel) {
 				switch_pixel("#pixel" + pixel);
 			});
 		});
 		timestamp = new Date().getTime();
 	}
+	
+	$('#rollback').click(function(){
+		
+		var limit = 20;
+		var offset = 0;
+		$('#edit').show();
+		
+		while($('#edit').attr("display") != 'none') {
+			$.getJSON('last', {'limit': limit, 'offset': offset}, function(data) {
+				$.each(data, function(i, pixel) {
+					switch_pixel("#pixel" + pixel);
+					setTimeout("",200);
+				});
+			});
+			offset += limit;
+		}
+	});
 });

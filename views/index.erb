@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>TetaRuby</title>
+	<title>TetaPixels</title>
 	<link rel="stylesheet" href="/css/master.css" type="text/css"/>
 	
 	<script type="text/javascript">
@@ -18,9 +18,13 @@
 <body>
 	<h1>Pixel Wall</h1>
 
-	<div id="pixel_wall"><% 50.times do |row_num| %><div class="row"><% 50.times do |column_num| pixel_id = (row_num * 50) + column_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
+	<div id="pixel_wall"><% 27.times do |row_num| %><div class="row"><% 16.times do |column_num| pixel_id = (row_num * 27) + column_num %><div id="pixel-<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 	
-	<p><a href="http://github.com/alx/tetapixels">Source</a></p>
+	<p>
+		<input type="submit" name="rollback" value="Rollback" id="rollback">
+		<input type="submit" name="edit" value="Edit" id="edit" style="display:none;">
+		<a href="http://github.com/alx/tetapixels">Source</a>
+	</p>
 	
 </body>
 </html>
