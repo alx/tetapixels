@@ -14,19 +14,19 @@ void setup() {
 
 	// Setup client on port 5204
 	myClient = new Client(this, "127.0.0.1", 5204); 
-  
+
 	// Setup background image
-  size(270, 160);
-  bg = loadImage(IMG_PATH);
+	size(270, 160);
+	bg = loadImage(IMG_PATH);
 
 	// Setup random if we want to random display pixels
 	randomSeed(0);
 }
 
 void draw() {
- 
-  background(bg);
-  noStroke();
+
+	background(bg);
+	noStroke();
 
 	if (myClient.available() > 0) { 
 		// Read until we get a linefeed
@@ -39,7 +39,7 @@ void draw() {
 }
 
 void displayPixels(String pixels) {
-  for(int row = 0; row < PIXEL_HEIGHT; row++) {
+	for(int row = 0; row < PIXEL_HEIGHT; row++) {
 		for(int column = 0; column < PIXEL_WIDTH; column++) {
 			fill(color(0, getPixelIntensity(pixels.charAt(row * column))));
 			rect(column*10, row*10, 10, 10);
@@ -48,31 +48,31 @@ void displayPixels(String pixels) {
 }
 
 int getPixelIntensity(char pixel){
-	
+
 	int pixel_value = 0;
-	
+
 	switch(pixel) {
-    case 'A':
-      pixel_value = 10;
-      break;
-    case 'B':
-      pixel_value = 11;
-      break;
-    case 'C':
-      pixel_value = 12;
-      break;
-    case 'D':
-      pixel_value = 13;
-      break;
-    case 'E':
-      pixel_value = 14;
-      break;
-    case 'F':
-      pixel_value = 15;
-      break;
-    default:
-      pixel_value = int(pixel);
-  }
+		case 'A':
+		pixel_value = 10;
+		break;
+		case 'B':
+		pixel_value = 11;
+		break;
+		case 'C':
+		pixel_value = 12;
+		break;
+		case 'D':
+		pixel_value = 13;
+		break;
+		case 'E':
+		pixel_value = 14;
+		break;
+		case 'F':
+		pixel_value = 15;
+		break;
+		default:
+		pixel_value = int(pixel);
+	}
 
 	return (pixel_value * 16);
 }
