@@ -29,6 +29,7 @@ $('document').ready(function() {
 			  break;
 			}
 			$("#gradient").val(value);
+			$("#sample").attr('src', "/images/" + value + ".gif");
 		}
 	});
 	

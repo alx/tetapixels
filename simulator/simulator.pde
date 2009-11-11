@@ -2,9 +2,8 @@ import processing.net.*;
 
 Client myClient;
 PImage bg;
-int a;
-char[] buffer_led;
-char buffer_value;
+byte[] byteBuffer = new byte[432];
+byte interesting = 10;
 
 String IMG_PATH = new String("file:///Users/alx/dev/tetalab/pixels/simulator/ledpong.gif");
 int PIXEL_WIDTH = 27;
@@ -21,6 +20,8 @@ void setup() {
 
 	// Setup random if we want to random display pixels
 	randomSeed(0);
+
+  setupPixels();
 }
 
 void draw() {
@@ -36,6 +37,14 @@ void draw() {
 		// Display the string inside the pixel frame
 		displayPixels(myString); 
 	} 
+}
+
+void setupPixels() {
+  String emptyPixels = new String("");
+  for(int i = 0; i < (PIXEL_HEIGHT * PIXEL_WIDTH); i++) {
+    emptyPixels = emptyPixels +"0";
+  }
+  displayPixels(emptyPixels);
 }
 
 void displayPixels(String pixels) {
