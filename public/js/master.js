@@ -52,7 +52,7 @@ $('document').ready(function() {
 		var color = $('#gradient').val();
 
 		// blank pixel if already this color
-		if(!$(this).is('.pixel_' + color)) {
+		if($(this).is('.pixel_' + color)) {
 			color = 0;
 		}
 
