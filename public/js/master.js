@@ -51,7 +51,7 @@ $('document').ready(function() {
 		var pixel_id = "#" + this.id.split("-").pop();
 		var color = '0';
 
-		if(!this.is('.pixel_' + color)) {
+		if(!$(this).is('.pixel_' + color)) {
 			color = $('#gradient').val();
 		}
 
