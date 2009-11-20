@@ -59,7 +59,7 @@ class Pixel
   has n, :clicks
   
   def switch(new_gradient)
-    self.update_attribute :gradient => gradient
+    self.update_attributes :gradient => gradient
     self.grid.update_pixel(self.id, new_gradient)
     
     click = self.clicks.new :gradient => new_gradient
@@ -79,7 +79,6 @@ class Click
 end
 
 get '/' do
-  
   begin
     @grid = Grid.first
   rescue
