@@ -1,7 +1,7 @@
 function switch_pixel(pixel_id, val) {
-	$(pixel_id).removeClass();
-	$(pixel_id).addClass('pixel pixel_' + val);
-	$.post("/pixel_switch", {pixel_id: pixel_id, gradient: $('#gradient').val()});
+	$("#" + pixel_id).removeClass();
+	$("#" + pixel_id).addClass('pixel pixel_' + val);
+	$.post("/pixel_switch", {'pixel_id': pixel_id, 'gradient': val});
 }
 
 function load_pixels(new_grid){
@@ -48,7 +48,7 @@ $('document').ready(function() {
 	
 	$('.pixel').click(function(){
 
-		var pixel_id = "#" + this.id.split("-").pop();
+		var pixel_id = this.id.split("-").pop();
 		var color = '0';
 
 		if(!$(this).is('.pixel_' + color)) {
