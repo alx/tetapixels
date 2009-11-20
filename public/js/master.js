@@ -65,5 +65,5 @@ $('document').ready(function() {
 	});
 	
 	load_pixels(grid);
-	setTimeout("update_pixels", 10000);
+	setTimeout($.get("/grid", function(hex_grid){load_pixels(hex_grid);}), 10000);
 });
