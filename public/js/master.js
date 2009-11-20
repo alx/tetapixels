@@ -10,6 +10,8 @@ function load_pixels(new_grid){
 	}
 }
 
+setTimeout(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000);
+
 $('document').ready(function() {
 	
 	$("#slider").slider({
@@ -59,5 +61,4 @@ $('document').ready(function() {
 	});
 	
 	load_pixels(grid);
-	setTimeout(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000);
 });
