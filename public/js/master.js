@@ -1,3 +1,21 @@
+function switch_pixel(pixel_id, val) {
+	$(pixel_id).removeClass();
+	$(pixel_id).addClass('pixel pixel_' + $('#gradient').val());
+	$.post("/pixel_switch", {pixel_id: pixel_id, gradient: $('#gradient').val()});
+}
+
+function load_pixels(new_grid){
+	for(var i = 0; i < new_grid.length; i++) {
+		$("#pixel-" + i).addClass('pixel_' + new_grid.charAt(i));
+	}
+}
+
+function update_pixels() {
+	$.get("/grid", function(hex_grid){
+		load_pixels(hex_grid);
+	});
+}
+
 $('document').ready(function() {
 	
 	$("#slider").slider({
@@ -33,53 +51,19 @@ $('document').ready(function() {
 		}
 	});
 	
-
-	// load grid
-	for(var i = 0; i < grid.length; i++) {
-		$("#pixel-" + i).addClass('pixel_' + grid.charAt(i));
-	}
-	
 	$('.pixel').click(function(){
-		
+
 		var pixel_id = "#" + this.id.split("-").pop();
 		var color = '0';
-		
+
 		if(!this.is('.pixel_' + color)) {
 			color = $('#gradient').val();
 		}
-		
+
 		switch_pixel(pixel_id, color);
-		
+
 	});
 	
-	function switch_pixel(pixel_id, val) {
-		$(pixel_id).removeClass();
-		$(pixel_id).addClass('pixel pixel_' + $('#gradient').val());
-		$.post("/pixel_switch", {pixel_id: pixel_id, gradient: $('#gradient').val()});
-	}
-	
-	function get_updates() {
-		$.getJSON('updates', {'timestamp': timestamp}, function(data) {
-			$.each(data.pixels,	 function(i, pixel) {
-				switch_pixel("#pixel" + pixel);
-			});
-		});
-		timestamp = new Date().getTime();
-	}
-	
-	$('#rollback').click(function(){
-		
-		var limit = 20;
-		var offset = 0;
-		
-		while($('#edit').attr("display") != 'none') {
-			$.getJSON('last', {'limit': limit, 'offset': offset}, function(data) {
-				$.each(data, function(i, pixel) {
-					switch_pixel("#pixel" + pixel);
-					setTimeout("",200);
-				});
-			});
-			offset += limit;
-		}
-	});
+	load_pixels(grid);
+	setTimeout("update_pixels", 10000);
 });

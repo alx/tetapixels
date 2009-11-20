@@ -102,6 +102,10 @@ get '/' do
   erb :index
 end
 
+get '/grid' do
+  Grid.first.hex_grid
+end
+
 post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch(params[:gradient])
 end
