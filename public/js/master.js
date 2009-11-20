@@ -65,5 +65,5 @@ $('document').ready(function() {
 	});
 	
 	load_pixels(grid);
-	setTimeout(update_pixels(), 15000);
+	setTimeout('update_pixels()', 15000);
 });
