@@ -1,6 +1,6 @@
 function switch_pixel(pixel_id, val) {
 	$(pixel_id).removeClass();
-	$(pixel_id).addClass('pixel pixel_' + $('#gradient').val());
+	$(pixel_id).addClass('pixel pixel_' + val);
 	$.post("/pixel_switch", {pixel_id: pixel_id, gradient: $('#gradient').val()});
 }
 
