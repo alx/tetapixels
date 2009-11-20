@@ -6,7 +6,7 @@ function switch_pixel(pixel_id, val) {
 
 function load_pixels(new_grid){
 	for(var i = 0; i < new_grid.length; i++) {
-		$("#pixel-" + i).addClass('pixel_' + new_grid.charAt(i));
+		$("#" + i).addClass('pixel_' + new_grid.charAt(i));
 	}
 	setTimeout(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000);
 }
