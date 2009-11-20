@@ -49,10 +49,11 @@ $('document').ready(function() {
 	$('.pixel').click(function(){
 
 		var pixel_id = this.id.split("-").pop();
-		var color = '0';
+		var color = $('#gradient').val();
 
+		// blank pixel if already this color
 		if(!$(this).is('.pixel_' + color)) {
-			color = $('#gradient').val();
+			color = 0;
 		}
 
 		switch_pixel(pixel_id, color);
