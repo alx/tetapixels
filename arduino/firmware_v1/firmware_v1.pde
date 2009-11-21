@@ -18,7 +18,7 @@
 void send(byte adres, byte reg, byte data);
 
 byte chip_0 = 0x10;      // adresses of max chips
-byte chip_1 = 39;
+byte chip_1 = 0x11;
 
 int intensity = 0xff;
 byte chipdata = 0;
@@ -29,6 +29,8 @@ void setup()
 
   Wire.begin(); // join i2c bus (address optional for master)
   Serial.begin(9600);
+
+	Serial.print("setup()");
 
   send(chip_0, 0xf, 0x10);			// blink 0 aan, 0x10 is glob uit
   send(chip_0, 0x6, 0x00);			// input en output config.
@@ -178,9 +180,13 @@ void loop()
 }
 
 void send(byte adres, byte reg, byte data){
+		
+		Serial.print("send()");
 		// small hint: stuur = dutch for send
 		Wire.beginTransmission(adres);
+		Serial.print("beginTransmission");
 		Wire.send(reg);
 		Wire.send(data);
 		Wire.endTransmission();
+		Serial.print("endTransmission");
 }

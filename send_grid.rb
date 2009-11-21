@@ -6,7 +6,8 @@ intensity = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D
 increment = 0
 
 432.times do |i|
-	new_grid << intensity[(increment % 5) + 8]
+  val = ((increment + 16*3) % 5) + 8
+	new_grid << intensity[val]
 	increment += 1
 end
 
