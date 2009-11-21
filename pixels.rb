@@ -95,6 +95,13 @@ get '/grid' do
   Grid.first.hex_grid
 end
 
+post '/grid' do
+  grid = Grid.first
+  if params[:grid] && params[:grid].size == grid.pixel_count
+    grid.update_attributes :hex_grid => 
+  end
+end
+
 post '/pixel_switch' do
   Pixel.first(:id => params[:pixel_id]).switch(params[:gradient])
 end
