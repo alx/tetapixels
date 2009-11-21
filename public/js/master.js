@@ -8,8 +8,9 @@ function load_pixels(new_grid){
 	for(var i = 0; i < new_grid.length; i++) {
 		$("#" + i).addClass('pixel_' + new_grid.charAt(i));
 	}
-	setTimeout(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000);
 }
+
+setInterval(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000 );
 
 $('document').ready(function() {
 	
