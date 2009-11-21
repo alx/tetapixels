@@ -24,8 +24,7 @@
 	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 		
 	<div id="info">
-		<div id="slider"></div>
-		<img src="/images/8.gif" id="sample"><br/>
+		<img src="/images/8.gif" id="sample"><div id="slider"></div><br/>
 		<input type="hidden" name="gradient" value="8" id="gradient">
 		<a href="http://github.com/alx/tetapixels">Source</a> - <a href="http://github.com/alx/tetapixels/blob/master/send_grid.rb">Script to POST grid</a>	
 	</div>
