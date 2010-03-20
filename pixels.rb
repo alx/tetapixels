@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 
-gem 'dm-core', '=0.9.11' 
-gem 'dm-timestamps', '=0.9.11'
+gem 'dm-core'
+gem 'dm-timestamps'
 
 require 'dm-core'
 require 'dm-timestamps'
