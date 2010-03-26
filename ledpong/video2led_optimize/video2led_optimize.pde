@@ -1,3 +1,7 @@
+// Processing to led Wall Fabrice Fourc. 2010
+// tetalab.org
+
+
 import processing.video.*;
 import processing.net.*;
 
@@ -20,7 +24,7 @@ Capture video;
 
 void setup() {
  size(270,160);
-
+ message = new byte[216];
   myClient = new Client(this, "127.0.0.1", 5204);
  // Initialize columns and rows
  cols = width/videoScale;
@@ -53,7 +57,7 @@ void draw() {
      int y = j*videoScale;
      // Looking up the appropriate color in the pixel array
      color c = video.pixels[i + j*video.width];
-     println("---------");
+     //println("---------");
      //println(video.width);
 
      int value = (int)brightness(c);  // get the brightness
@@ -61,15 +65,13 @@ void draw() {
      //println(hex(value/16,1));
 
      ledCol +=hex(value/16,1);
-     bitFortbyte=byte(value);
+
      if (fort) {
        bitFort=value;
        bitFortbyte=byte(value);
        fort=false;
      } else {
-       valueByte=byte(value);
-       message[t]= byte((bitFortbyte*16)+(valueByte/16));
-       println(bitFort+value/16);
+       message[t]=byte((bitFort+value/16));
        fort=true;
        t++;
        bitFort=0;
@@ -87,6 +89,6 @@ void draw() {
 //println(ledWallMsg);
  println(message);
 
- // myClient.write(ledWallMsg);
+ myClient.write(message);
    delay(100);
 }
