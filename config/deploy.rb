@@ -21,8 +21,7 @@ role :db,  "pixels.tetalab.org"
 #========================
 
 namespace :deploy do
-  desc "Link db"
-  task :link_db, :roles => :app, :except => { :no_release => true } do
+  task :symlink do
     run "ln -sf #{deploy_to}/shared/db/test.db #{current_path}/test.db"
   end
 end
