@@ -21,11 +21,12 @@ role :db,  "pixels.tetalab.org"
 #========================
 
 namespace :deploy do
-  task :symlink do
+  task :dblink do
     run "ln -sf #{deploy_to}/shared/db/test.db #{current_path}/test.db"
   end
 end
 
+after "deploy:symlink", "deploy:dblink"
 
 namespace :deploy do
   
