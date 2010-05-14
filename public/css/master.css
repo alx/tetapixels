@@ -57,3 +57,5 @@ a {
 .pixel_D {background: url(../images/D.gif);}
 .pixel_E {background: url(../images/E.gif);}
 .pixel_F {background: url(../images/F.gif);}
+
+.control{cursor: pointer;}

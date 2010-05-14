@@ -1,4 +1,5 @@
 var glider_id = 0;
+var gliderIntervalId = 0;
 
 function switch_pixel(pixel_id, val) {
 	$("#" + pixel_id).removeClass();
@@ -130,8 +131,6 @@ function gliding(){
   }
 }
 
-setInterval(function() {gliding();}, 10 );
-
 $('document').ready(function() {
 	
 	$("#slider").slider({
@@ -182,4 +181,16 @@ $('document').ready(function() {
 	});
 	
 	load_pixels(grid);
+	
+	$("#start_glider").click(function(){
+	  gliderIntervalId = setInterval(function() {gliding();}, 10 );
+	  $("#start_glider").hide();
+	  $("#stop_glider").show();
+	});
+	
+	$("#stop_glider").click(function(){
+	  clearInterval ( gliderIntervalId );
+	  $("#start_glider").show();
+	  $("#stop_glider").hide();
+	})
 });
