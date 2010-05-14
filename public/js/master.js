@@ -25,15 +25,15 @@ function gliding(){
   {
   case "0":
     new_intensity = "F";
-    direction = "up";
+    direction = "down";
     break;
   case "1":
       new_intensity = "E";
-      direction = "up";
+      direction = "right";
     break;
   case "2":
       new_intensity = "D";
-      direction = "up";
+      direction = "left";
     break;
   case "3":
       new_intensity = "C";
@@ -41,7 +41,7 @@ function gliding(){
     break;
   case "4":
       new_intensity = "B";
-      direction = "right";
+      direction = "down";
     break;
   case "5":
       new_intensity = "A";
@@ -49,19 +49,19 @@ function gliding(){
     break;
   case "6":
       new_intensity = "9";
-      direction = "right";
+      direction = "left";
     break;
   case "7":
       new_intensity = "8";
-      direction = "right";
+      direction = "up";
     break;
   case "8":
       new_intensity = "7";
-      direction = "left";
+      direction = "down";
     break;
   case "9":
       new_intensity = "6";
-      direction = "left";
+      direction = "right";
     break;
   case "A":
       new_intensity = "5";
@@ -69,7 +69,7 @@ function gliding(){
     break;
   case "B":
       new_intensity = "4";
-      direction = "left";
+      direction = "up";
     break;
   case "C":
       new_intensity = "3";
@@ -77,15 +77,15 @@ function gliding(){
     break;
   case "D":
       new_intensity = "2";
-      direction = "down";
+      direction = "right";
     break;
   case "E":
       new_intensity = "1";
-      direction = "down";
+      direction = "left";
     break;
   case "F":
       new_intensity = "0";
-      direction = "down";
+      direction = "up";
     break;
   }
   
@@ -130,7 +130,7 @@ function gliding(){
   }
 }
 
-setInterval(function() {gliding();}, 100 );
+setInterval(function() {gliding();}, 10 );
 
 $('document').ready(function() {
 	
