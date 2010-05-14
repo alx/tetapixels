@@ -24,52 +24,68 @@ function gliding(){
   switch(intensity)
   {
   case "0":
-    new_intensity = "F"
+    new_intensity = "F";
+    direction = "up";
     break;
   case "1":
-      new_intensity = "E"
+      new_intensity = "E";
+      direction = "up";
     break;
   case "2":
-      new_intensity = "D"
+      new_intensity = "D";
+      direction = "up";
     break;
   case "3":
-      new_intensity = "C"
+      new_intensity = "C";
+      direction = "up";
     break;
   case "4":
-      new_intensity = "B"
+      new_intensity = "B";
+      direction = "up";
     break;
   case "5":
-      new_intensity = "A"
+      new_intensity = "A";
+      direction = "up";
     break;
   case "6":
-      new_intensity = "9"
+      new_intensity = "9";
+      direction = "up";
     break;
   case "7":
-      new_intensity = "8"
+      new_intensity = "8";
+      direction = "up";
     break;
   case "8":
-      new_intensity = "7"
+      new_intensity = "7";
+      direction = "up";
     break;
   case "9":
-      new_intensity = "6"
+      new_intensity = "6";
+      direction = "up";
     break;
   case "A":
-      new_intensity = "5"
+      new_intensity = "5";
+      direction = "up";
     break;
   case "B":
-      new_intensity = "4"
+      new_intensity = "4";
+      direction = "up";
     break;
   case "C":
-      new_intensity = "3"
+      new_intensity = "3";
+      direction = "up";
     break;
   case "D":
-      new_intensity = "2"
+      new_intensity = "2";
+      direction = "up";
     break;
   case "E":
-      new_intensity = "1"
+      new_intensity = "1";
+      direction = "up";
     break;
   case "F":
-      new_intensity = "0"
+      new_intensity = "0";
+      direction = "up";
     break;
   }
   
@@ -83,12 +99,18 @@ function gliding(){
     } else {
       glider_id -= 1;
     }
+    if(glider_id == 416){
+      glider_id = 0;
+    }
     break;
   case "down":
     if(glider_id % 16 == 15){
       glider_id -= 16;
     } else {
       glider_id += 1;
+    }
+    if(glider_id <= 0){
+      glider_id = 431;
     }
     break;
   case "left":
@@ -108,7 +130,7 @@ function gliding(){
   }
 }
 
-setInterval(function() {gliding();}, 1000 );
+setInterval(function() {gliding();}, 100 );
 
 $('document').ready(function() {
 	
