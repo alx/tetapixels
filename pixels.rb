@@ -98,7 +98,7 @@ end
 post '/grid' do
   grid = Grid.first
   if params[:grid] && params[:grid].size == grid.pixel_count
-    grid.update_attributes :hex_grid => params[:grid]
+    grid.update(:hex_grid => params[:grid])
   end
 end
 
