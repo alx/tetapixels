@@ -29,19 +29,19 @@ function gliding(){
     direction = "down";
     break;
   case "1":
-      new_intensity = "E";
+      new_intensity = "F";
       direction = "right";
     break;
   case "2":
-      new_intensity = "D";
+      new_intensity = "F";
       direction = "left";
     break;
   case "3":
-      new_intensity = "C";
+      new_intensity = "F";
       direction = "up";
     break;
   case "4":
-      new_intensity = "B";
+      new_intensity = "A";
       direction = "down";
     break;
   case "5":
@@ -49,15 +49,15 @@ function gliding(){
       direction = "right";
     break;
   case "6":
-      new_intensity = "9";
+      new_intensity = "A";
       direction = "left";
     break;
   case "7":
-      new_intensity = "8";
+      new_intensity = "A";
       direction = "up";
     break;
   case "8":
-      new_intensity = "7";
+      new_intensity = "6";
       direction = "down";
     break;
   case "9":
@@ -65,23 +65,23 @@ function gliding(){
       direction = "right";
     break;
   case "A":
-      new_intensity = "5";
-      direction = "left";
+      new_intensity = "6";
+      direction = "right";
     break;
   case "B":
-      new_intensity = "4";
+      new_intensity = "6";
       direction = "up";
     break;
   case "C":
-      new_intensity = "3";
-      direction = "down";
+      new_intensity = "0";
+      direction = "gith";
     break;
   case "D":
-      new_intensity = "2";
+      new_intensity = "0";
       direction = "right";
     break;
   case "E":
-      new_intensity = "1";
+      new_intensity = "0";
       direction = "left";
     break;
   case "F":
