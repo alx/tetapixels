@@ -1,5 +1,39 @@
 var glider_id = 0;
 var gliderIntervalId = 0;
+var sequencerLine = 0;
+var opacityArray = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0];
+
+function showCircle(o, counter) {
+  if (!$("#" + o).hasClass("pixel_0")){
+
+    counter += 1;
+  } else {
+    this.stop();
+  }
+}
+
+function sparkle(pixel){
+  setTimeout(function(){fadeOut(pixel, 5)}, 100);
+  setTimeout(function(){fadeIn(pixel, 5)}, 600);
+}
+
+function fadeOut(pixel, length){
+  if(length == undefined){length = 16;}
+  $.each(opacityArray.slice(16-length, length),
+      function(index, color){
+        setTimeout(function(){$(pixel).css({opacity: color});}, index * 100);
+      }
+  );
+}
+
+function fadeIn(pixel, length){
+  if(length == undefined){length = 16;}
+  $.each(opacityArray.reverse().slice(0, length),
+    function(index, color){
+      setTimeout(function(){$(pixel).css({opacity: color});}, index * 100);
+    }
+  );
+}
 
 function switch_pixel(pixel_id, val) {
 	$("#" + pixel_id).removeClass();
@@ -9,11 +43,24 @@ function switch_pixel(pixel_id, val) {
 
 function load_pixels(new_grid){
 	for(var i = 0; i < new_grid.length; i++) {
-		$("#" + i).addClass('pixel_' + new_grid.charAt(i));
+		$("#" + i).css({opacity: 0});
 	}
 }
 
-setInterval(function() {$.get("/grid", function(hex_grid){load_pixels(hex_grid);});}, 10000 );
+function sequence(){
+  // for(i=0;i<16;i++){
+  //   fadeOut($("#" + (i + sequencerLine)), 5);
+  // }
+  
+  sequencerLine += 16;
+  if(sequencerLine > 432){sequencerLine = 0;}
+  
+  for(i=0;i<16;i++){
+    fadeIn($("#" + (i + sequencerLine)), 5);
+  }
+}
+
+setInterval(function() {sequence()},10);
 
 function gliding(){
   var classes = $("#" + glider_id).attr("class");
@@ -168,19 +215,31 @@ $('document').ready(function() {
 	
 	$('.pixel').click(function(){
 
-		var pixel_id = this.id.split("-").pop();
-		var color = $('#gradient').val();
-
-		// blank pixel if already this color
-		if($(this).is('.pixel_' + color)) {
-			color = 0;
-		}
-
-		switch_pixel(pixel_id, color);
-
+    // var pixel_id = this.id.split("-").pop();
+    // var color = $('#gradient').val();
+    // 
+    // // blank pixel if already this color
+    // if($(this).is('.pixel_' + color)) {
+    //  color = 0;
+    // }
+    // 
+    // switch_pixel(pixel_id, color);
+    //setInterval(sparkle($(this)), 1000);
+    
+    var o = parseInt(this.id);
+    for(var i = 1; i <= 3; i++) {
+      $.each([o-i, o+i, o-(16*i), o+(16*i)], function(index, value){
+        fadeOut($("#" + value));
+      });
+  	}
 	});
 	
-	load_pixels(grid);
+	$(".pixel").mouseenter(function(event){
+    $(this).css({opacity: 1});
+  });
+	$(".pixel").mouseleave(function(event){
+	  fadeOut($(this));
+  });
 	
 	$("#start_glider").click(function(){
 	  gliderIntervalId = setInterval(function() {gliding();}, 10 );
@@ -192,5 +251,7 @@ $('document').ready(function() {
 	  clearInterval ( gliderIntervalId );
 	  $("#start_glider").show();
 	  $("#stop_glider").hide();
-	})
+	});
+	
+	$(".pixel").css({opacity: 0});
 });
