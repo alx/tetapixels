@@ -45,29 +45,21 @@ byte address[] = {
   0x2F
 };
 
-// total nb of max7313
-int maxnb = 27;
-
-// timer used to slow down the full test (K2000 effect speed)
-int timer = 1;
-
-// intensity
-int intensity = 0xff;
+// total number of columns (nb of max7313)
+int maxCol = 27;
 
 // total number of rows
 int maxRow = 16;
 
-// lenght of the serial message maxnb *16
+// lenght of the serial message maxCol *16
 char serString[433];
-
-int valid = 0;
 
 void setup()
 {
   Wire.begin(); // join i2c bus (address optional for master)
   Serial.begin(38400);
   
-  for (int maxindex=0; maxindex < maxnb; maxindex++)
+  for (int maxindex=0; maxindex < maxCol; maxindex++)
   {
     // Max 7313 - Init phase
     Send(address[maxindex], 0xf, 0x10); // blink 0 aan, 0x10 is glob uit
@@ -90,18 +82,6 @@ void loop()
   int stringIndex=0;
   // browse cols
   int maxindex; // index of array
-  /**
-   * if ( valid == 0 ) {
-   * for (int maxindex=0; maxindex < maxnb; maxindex++){
-   * for (int row=0; row < maxRow; row++){
-   * // j'efface tout
-   * //delay(timer);
-   * Send(address[maxindex], (0x10+(row/2)), 0xff);
-   * }
-   * }
-   * return;
-   * }
-  /**/
 
   byte colData[8];
   byte Pos1;
@@ -110,7 +90,7 @@ void loop()
   int t =0;
   boolean fort=true;
   
-  for (int maxindex=0; maxindex < maxnb; maxindex++){
+  for (int maxindex=0; maxindex < maxCol; maxindex++){
     // browse cols
     for (int row=0; row < maxRow; row++){
       // browse rows
