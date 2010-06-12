@@ -11,30 +11,65 @@
 
 
 void Send(byte addr, byte reg, byte data);
-byte address[] = {
-  0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x1A,0x1B,0x20,0x21,0x22,0x23,0x24,0x25,0x26,0x27,0x28,0x29,0x2A,0x2B,0x2C,0x2D,0x2E,0x2F};
-//byte address[] = {0x1B,0x20,0x21,0x22,0x23,0x24,0x25,0x26,0x27,0x28,0x29,0x2A,0x2B,0x2C,0x2D,0x2E,0x2F};
+
 // adresses of max chips
-//   byte address[] = {0x11, 0X12, 0x13};      // adresses of max chips
-int maxnb = 27;    // total nb of max7313
-int timer = 1; // timer used to slow down the full test (K2000 effect speed)
-int intensity = 0xff; // intensity
+byte address[] = {
+  0x11,
+  0x12,
+  0x13,
+  0x14,
+  0x15,
+  0x16,
+  0x17,
+  0x18,
+  0x19,
+  
+  0x1A,
+  0x1B,
+  0x20,
+  0x21,
+  0x22,
+  0x23,
+  0x24,
+  0x25,
+  0x26,
+  
+  0x27,
+  0x28,
+  0x29,
+  0x2A,
+  0x2B,
+  0x2C,
+  0x2D,
+  0x2E,
+  0x2F
+};
+
+// total nb of max7313
+int maxnb = 27;
+
+// timer used to slow down the full test (K2000 effect speed)
+int timer = 1;
+
+// intensity
+int intensity = 0xff;
+
+// total number of rows
 int maxRow = 16;
-char serString[433]; // lenght of the serial message maxnb *16
+
+// lenght of the serial message maxnb *16
+char serString[433];
+
 int valid = 0;
 
 void setup()
 {
-
   Wire.begin(); // join i2c bus (address optional for master)
-  //Serial.begin(115200); // (DEBUG)
-  Serial.begin(38400); // (DEBUG)
-
-  //  print("check");
-  int maxindex; // index of array
+  Serial.begin(38400);
+  
   for (int maxindex=0; maxindex < maxnb; maxindex++)
-    // Max 7313 - Init phase
   {
+    // Max 7313 - Init phase
     Send(address[maxindex], 0xf, 0x10); // blink 0 aan, 0x10 is glob uit
     Send(address[maxindex], 0x6, 0x00); // input en output config.
     Send(address[maxindex], 0x7, 0x00); // oninterresante getallen, afblijven!!
@@ -48,12 +83,9 @@ void setup()
 
 void loop()
 {
-
   // Read the serial
   readSerialProtocol(serString);
-
-  //Serial.print(serString);
-
+  
   //string index to browse the serial string
   int stringIndex=0;
   // browse cols
@@ -77,31 +109,29 @@ void loop()
   int k=0;
   int t =0;
   boolean fort=true;
-
-  // browse cols
+  
   for (int maxindex=0; maxindex < maxnb; maxindex++){
-    //browse rows
-
+    // browse cols
     for (int row=0; row < maxRow; row++){
+      // browse rows
+      
       // Serial.println(serString[stringIndex]);
-      //boucle sur les string index
-
-
-
+      // boucle sur les string index
+      
       if (fort){
         Pos1=serString[stringIndex];
         fort=false;
         k++;
-      }
-      else{
+      } else {
         k++;
-        //Serial.print(k,DEC);
         Pos2=serString[stringIndex];
-        //Serial.print("pos1:");
-        //Serial.println(Pos1,HEX);
-        //Serial.print("pos2:");
-        //Serial.println(Pos2,HEX);
         colData[t]=Read2HEXtoDEC(Pos1,Pos2);
+        // DEBUG
+        // Serial.print(k,DEC);
+        // Serial.print("pos1:");
+        // Serial.println(Pos1,HEX);
+        // Serial.print("pos2:");
+        // Serial.println(Pos2,HEX);
 
         fort=true;
         t++;
@@ -111,10 +141,8 @@ void loop()
     SendCol(address[maxindex], 0x10, colData);
     t=0;
   }
-
-  //delay for debugging
-  //delay(10);
-
+  // DEBUG
+  // delay(10);
 }
 
 // Send I2C data
@@ -123,15 +151,16 @@ void SendCol(byte addr, byte reg, byte colData[])
 
   Wire.beginTransmission(addr);
   Wire.send( reg);
-  //     Serial.print("Maxaddress :");
-  //     Serial.print(addr,HEX); // debug
-
-
-    for (int i=0;i<8;i++){
+  // DEBUG
+  // Serial.print("Maxaddress :");
+  // Serial.print(addr,HEX); // debug
+  
+  for (int i=0;i<8;i++){
     Wire.send( colData[i]);
-    //     Serial.println(i,DEC); // debug
-    //     Serial.print("< N Ligne / HEX Value : ");
-    //     Serial.println(colData[i],HEX); // debug
+    // DEBUG
+    // Serial.println(i,DEC); 
+    // Serial.print("< N Ligne / HEX Value : ");
+    // Serial.println(colData[i],HEX);
   }
   Wire.endTransmission();
 }
@@ -155,28 +184,29 @@ void readSerialProtocol (char *strArray) {
   if(!Serial.available()) {
     return;
   }
-
+  
   while (i < 432) {
     if (!Serial.available())
       continue;
     c = Serial.read();
     if (sync == 0) {
       if (c != 'Z') {
-        //Serial.write('R');
-        //Serial.write(c);
+        // DEBUG
+        // Serial.write('R');
+        // Serial.write(c);
         continue;
       }
-      //Serial.write('S');
+      // DEBUG
+      // Serial.write('S');
       sync = 1;
       continue;
     }
-    /**
-    if (!((c >= 65 && c <= 70) || (c >= 48 && c <= 57))) {
-      Serial.write('!');
-      Serial.write(c);
-      Serial.write('!');
-    }
-    /**/
+    // DEBUG
+    // if (!((c >= 65 && c <= 70) || (c >= 48 && c <= 57))) {
+    //   Serial.write('!');
+    //   Serial.write(c);
+    //   Serial.write('!');
+    // }
     strArray[i++] = c;
   }
 }
