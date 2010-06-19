@@ -69,7 +69,7 @@ class Pixel
   
   def switch(new_gradient)
     self.update :gradient => gradient
-    self.grid.update_pixel(self.id, new_gradient)
+    Grid.first.update_pixel(self.id, new_gradient)
     
     click = self.clicks.new :gradient => new_gradient
     click.save
