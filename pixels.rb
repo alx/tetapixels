@@ -29,7 +29,7 @@ class Grid
   def update_pixel(pixel_id, status)
     grid = self.hex_grid
     grid[pixel_id] = status
-    self.update_attributes :hex_grid => grid
+    self.update :hex_grid => grid
   end
   
   def generate_random_grid
@@ -41,7 +41,7 @@ class Grid
       pixel.save
       grid[i] = pixel.gradient
     end
-    self.update_attributes :hex_grid => grid
+    self.update :hex_grid => grid
   end
   
 end
@@ -59,7 +59,7 @@ class Pixel
   has n, :clicks
   
   def switch(new_gradient)
-    self.update_attributes :gradient => gradient
+    self.update :gradient => gradient
     self.grid.update_pixel(self.id, new_gradient)
     
     click = self.clicks.new :gradient => new_gradient
