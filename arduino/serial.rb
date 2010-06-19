@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'serialport'
 
-sp = SerialPort.new "/dev/tty.usbserial-A7006Qs0", 38400
+sp = SerialPort.new "/dev/tty.usbserial-A6008lkC", 38400
 
 while(1) do
   panel = "Z"
