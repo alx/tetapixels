@@ -111,6 +111,6 @@ post '/grid' do
 end
 
 post '/pixel_switch' do
-  logger.info "Switch pixel[#{params[:pixel_id]}]: #{params[:gradient]}"
+  p "Switch pixel[#{params[:pixel_id]}]: #{params[:gradient]}"
   Pixel.first(:id => params[:pixel_id]).switch(params[:gradient])
 end
