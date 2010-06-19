@@ -37,8 +37,9 @@ class Grid
   def update_pixel(pixel_id, status)
     grid = self.hex_grid
     grid[pixel_id] = status
-    p "update grid: #{grid} - pixel: #{pixel_id} - status: #{status}"
+    p "update grid: #{grid[0..10]} - pixel: #{pixel_id} - status: #{status}"
     self.update! :hex_grid => grid
+    p "hexgrid: #{hexgrid[0..10]}"
   end
   
   def generate_random_grid
