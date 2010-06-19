@@ -37,7 +37,8 @@ class Grid
   def update_pixel(pixel_id, status)
     grid = self.hex_grid
     grid[pixel_id] = status
-    p "update grid: #{grid}"
+    p "db path: #{Dir.pwd}/test.db"
+    p "update grid: #{grid} - pixel: #{pixel_id} - status: #{status}"
     self.update :hex_grid => grid
   end
   
