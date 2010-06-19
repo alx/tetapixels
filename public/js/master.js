@@ -6,7 +6,7 @@ function switch_pixel(pixel_id, val) {
 
 function load_pixels(new_grid){
 	for(var i = 0; i < new_grid.length; i++) {
-		$("#" + i).addClass('pixel_' + new_grid.charAt(i));
+	  $("#" + i).removeClass().addClass('pixel pixel_' + new_grid.charAt(i));
 	}
 }
 

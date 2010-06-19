@@ -21,7 +21,7 @@
 <body>
 	<h1>Pong Wall</h1>
 
-	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="<%= pixel_id %>" class="pixel pixel_F"></div><% end %></div><% end %></div>
+	<div id="pixel_wall"><% 16.times do |row_num| %><div class="row"><% 27.times do |column_num| pixel_id = (column_num * 16) + row_num %><div id="<%= pixel_id %>" class="pixel"></div><% end %></div><% end %></div>
 		
 	<div id="info">
 		<img src="/images/8.gif" id="sample"><div id="slider"></div><br/>
