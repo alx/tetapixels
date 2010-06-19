@@ -9,7 +9,15 @@ require 'dm-timestamps'
 
 DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}/test.db")
 
-set :logging, false
+configure do
+  LOGGER = Logger.new("sinatra.log") 
+end
+
+helpers do
+  def logger
+    LOGGER
+  end
+end
 
 class Grid
   include DataMapper::Resource
@@ -103,5 +111,6 @@ post '/grid' do
 end
 
 post '/pixel_switch' do
+  logger.info "Switch pixel[#{params[:pixel_id]}]: #{params[:gradient]}"
   Pixel.first(:id => params[:pixel_id]).switch(params[:gradient])
 end
