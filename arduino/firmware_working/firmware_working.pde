@@ -22,6 +22,7 @@ int intensity = 0xff; // intensity
 int maxRow = 16;
 char serString[433]; // lenght of the serial message maxnb *16
 int valid = 0;
+long randNumber;
 
 void setup()
 {
@@ -42,6 +43,8 @@ void setup()
     Send(address[maxindex], 0x3, 0xff);
     Send(address[maxindex], 0xe, 0xff); // config bit
   }
+  
+  randomSeed(analogRead(0));
 }
 
 
@@ -50,7 +53,8 @@ void loop()
 {
 
   // Read the serial
-  readSerialProtocol(serString);
+  // readSerialProtocol(serString);
+  
 
   //Serial.print(serString);
 
@@ -108,7 +112,13 @@ void loop()
       }
       stringIndex++;
     }
-    SendCol(address[maxindex], 0x10, colData);
+    //SendCol(address[maxindex], 0x10, colData);
+    
+    if(random(1) == 1){
+      SendCol(address[maxindex], 0x10, "F");
+    } else {
+      SendCol(address[maxindex], 0x10, "0");
+    }
     t=0;
   }
 
